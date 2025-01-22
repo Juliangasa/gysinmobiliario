@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body class="bg-white box-border m-0 p-0 flex flex-col items-center">
     <header class="bg-yellow-400 h-28 w-full flex items-center justify-between">
         <div class="bg-[#4f5563] flex w-48 h-24 ml-8 items-center justify-center gap-2 rounded">
@@ -391,6 +390,15 @@
                             }
                         }
                     });
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const aboutUsLink = document.querySelector('li a[href="#"]');
+                aboutUsLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.href = 'https://gysinmobiliario.com/quienes-somos/';
                 });
             });
         </script>
