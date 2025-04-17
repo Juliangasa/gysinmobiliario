@@ -55,9 +55,50 @@
             </ul>
         </nav>
     </header>
-        <section class="w-full h-fit bg-gradient-to-br from-amber-100 from-10% via-amber-700 via-50% to-amber-600 py-8">
-            <div class="relative w-full h-fit overflow-hidden">
-                <h3 class="font-bold text-5xl text-amber-400 text-center">Our Projects</h3>
+        <section class="w-full min-h-screen bg-gradient-to-br from-amber-50 from-10% via-amber-300 via-50% to-amber-400">
+            <div class="relative w-full h-full p-8">
+                <h3 class="font-bold text-5xl text-teal-800 text-center mb-8">Our Projects</h3>
+                
+                <!-- Added Horizontal Image Scroll Bar -->
+                <div class="relative w-full overflow-hidden mb-12">
+                    <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6">
+                        <!-- Image 1 -->
+                        <div class="flex-shrink-0 w-96 h-64 mx-2 snap-center">
+                            <img src="./assets/img/project1.jpg" alt="Project 1" 
+                                class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <!-- Image 2 -->
+                        <div class="flex-shrink-0 w-96 h-64 mx-2 snap-center">
+                            <img src="./assets/img/project2.jpg" alt="Project 2" 
+                                class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <!-- Image 3 -->
+                        <div class="flex-shrink-0 w-96 h-64 mx-2 snap-center">
+                            <img src="./assets/img/project3.jpg" alt="Project 3" 
+                                class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <!-- Image 4 -->
+                        <div class="flex-shrink-0 w-96 h-64 mx-2 snap-center">
+                            <img src="./assets/img/project4.jpg" alt="Project 4" 
+                                class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <!-- Image 5 -->
+                        <div class="flex-shrink-0 w-96 h-64 mx-2 snap-center">
+                            <img src="./assets/img/project5.jpg" alt="Project 5" 
+                                class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                        </div>
+                    </div>
+                    
+                    <!-- Scroll Buttons -->
+                    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-r-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('left')">
+                        <i class="fas fa-chevron-left text-teal-800 text-xl"></i>
+                    </button>
+                    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-l-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('right')">
+                        <i class="fas fa-chevron-right text-teal-800 text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Rest of your existing content -->
                 <div class="w-full h-fit px-4 flex justify-center">
                     <!-- Main Container -->
                     <div class="w-4/5 h-fit mt-20 flex flex-col">
@@ -286,6 +327,55 @@
                     e.preventDefault();
                     window.location.href = 'https://gysinmobiliario.com/quienes-somos/';
                 });
+            });
+        </script>
+        <script>
+            function scrollImages(direction) {
+                const container = document.querySelector('.overflow-x-auto');
+                const scrollAmount = 400; // Adjust this value to control scroll distance
+                
+                if (direction === 'left') {
+                    container.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    container.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            // Add touch scroll functionality
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            const slider = document.querySelector('.overflow-x-auto');
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('cursor-grabbing');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('cursor-grabbing');
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('cursor-grabbing');
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
             });
         </script>
 </body>

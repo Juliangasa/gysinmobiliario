@@ -66,9 +66,49 @@
             class="w-5/6 h-9/10 absolute flex flex-col items-center justify-center text-center text-white mt-16">
             <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold mb-12">Bienvenidos a</h1>
             <img class="w-1/2 h-1/2" src="./assets/img/G&S Inmobilario.png" alt="Company Logo 'G&S Inmobiliario'">
+            
+            <!-- Added Horizontal Image Scroll Bar -->
+            <div class="relative w-full overflow-hidden mt-12">
+                <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6">
+                    <!-- Image 1 -->
+                    <div class="flex-shrink-0 w-80 h-48 mx-2 snap-center">
+                        <img src="./assets/img/property1.jpg" alt="Property 1" 
+                            class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <!-- Image 2 -->
+                    <div class="flex-shrink-0 w-80 h-48 mx-2 snap-center">
+                        <img src="./assets/img/property2.jpg" alt="Property 2" 
+                            class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <!-- Image 3 -->
+                    <div class="flex-shrink-0 w-80 h-48 mx-2 snap-center">
+                        <img src="./assets/img/property3.jpg" alt="Property 3" 
+                            class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <!-- Image 4 -->
+                    <div class="flex-shrink-0 w-80 h-48 mx-2 snap-center">
+                        <img src="./assets/img/property4.jpg" alt="Property 4" 
+                            class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <!-- Image 5 -->
+                    <div class="flex-shrink-0 w-80 h-48 mx-2 snap-center">
+                        <img src="./assets/img/property5.jpg" alt="Property 5" 
+                            class="w-full h-full object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                    </div>
+                </div>
+                
+                <!-- Scroll Buttons -->
+                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-r-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('left')">
+                    <i class="fas fa-chevron-left text-teal-800 text-xl"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-l-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('right')">
+                    <i class="fas fa-chevron-right text-teal-800 text-xl"></i>
+                </button>
+            </div>
+
             <a href="projects.html" class="mt-8 px-6 py-3 bg-white text-black rounded-full text-lg font-semibold transition duration-300 ease-in-out hover:bg-black hover:text-white">
-                Explorar Propiedades</a>
-        </div>
+                Explorar Propiedades
+            </a>
         </div>
     </section>
     <section id="soluciones" class="w-full h-fit to-white flex flex-col items-center">
@@ -439,6 +479,55 @@
                 e.preventDefault();
                 window.location.href = 'https://gysinmobiliario.com/quienes-somos/';
             });
+        });
+    </script>
+    <script>
+        function scrollImages(direction) {
+            const container = document.querySelector('.overflow-x-auto');
+            const scrollAmount = 400; // Adjust this value to control scroll distance
+            
+            if (direction === 'left') {
+                container.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                container.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Add touch scroll functionality
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        const slider = document.querySelector('.overflow-x-auto');
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('cursor-grabbing');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('cursor-grabbing');
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('cursor-grabbing');
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
         });
     </script>
 </body>
