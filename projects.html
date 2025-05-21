@@ -115,10 +115,10 @@
                     </div>
                     
                     <!-- Scroll Buttons -->
-                    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-r-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('left, scrollContainer1')">
+                    <button onclick="scrollImages('left', 'scrollContainer1')">
                         <i class="fas fa-chevron-left text-teal-800 text-xl"></i>
                     </button>
-                    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-l-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('right, scrollContainer1')">
+                    <button onclick="scrollImages('right', 'scrollContainer1')">
                         <i class="fas fa-chevron-right text-teal-800 text-xl"></i>
                     </button>
                 </div>
@@ -178,10 +178,10 @@
                     </div>
                     
                     <!-- Scroll Buttons -->
-                    <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-r-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('left, scrollContainer2')">
+                    <button onclick="scrollImages('left', 'scrollContainer2')">
                         <i class="fas fa-chevron-left text-teal-800 text-xl"></i>
                     </button>
-                    <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 p-2 rounded-l-lg shadow-lg hover:bg-white transition-colors duration-300" onclick="scrollImages('right, scrollContainer2')">
+                    <button onclick="scrollImages('right', 'scrollContainer2')">
                         <i class="fas fa-chevron-right text-teal-800 text-xl"></i>
                     </button>
                 </div>
@@ -354,9 +354,11 @@
             });
         </script>
         <script>
-            function scrollImages(direction) {
-                const container = document.querySelector('.overflow-x-auto');
-                const scrollAmount = 400; // Adjust this value to control scroll distance
+            function scrollImages(direction, containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return; // Safety check
+                
+                const scrollAmount = 400;
                 
                 if (direction === 'left') {
                     container.scrollBy({
@@ -371,35 +373,36 @@
                 }
             }
 
-            // Add touch scroll functionality
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            const slider = document.querySelector('.overflow-x-auto');
+            // Touch scroll functionality
+            document.querySelectorAll('.overflow-x-auto').forEach(slider => {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
 
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('cursor-grabbing');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    slider.classList.add('cursor-grabbing');
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                });
 
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('cursor-grabbing');
-            });
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.classList.remove('cursor-grabbing');
+                });
 
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('cursor-grabbing');
-            });
+                slider.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.classList.remove('cursor-grabbing');
+                });
 
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                slider.scrollLeft = scrollLeft - walk;
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    slider.scrollLeft = scrollLeft - walk;
+                });
             });
         </script>
 </body>

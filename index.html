@@ -488,9 +488,9 @@
         });
     </script>
     <script>
-        function scrollImages(direction) {
-            const container = document.querySelector('.overflow-x-auto');
-            const scrollAmount = 400; // Adjust this value to control scroll distance
+        function scrollImages(direction, containerId) {
+            const container = document.getElementById(containerId);
+            const scrollAmount = 400;
             
             if (direction === 'left') {
                 container.scrollBy({
@@ -505,35 +505,36 @@
             }
         }
 
-        // Add touch scroll functionality
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        const slider = document.querySelector('.overflow-x-auto');
+        // Update touch scroll functionality for both containers
+        document.querySelectorAll('.overflow-x-auto').forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
 
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            slider.classList.add('cursor-grabbing');
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-        });
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('cursor-grabbing');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
 
-        slider.addEventListener('mouseleave', () => {
-            isDown = false;
-            slider.classList.remove('cursor-grabbing');
-        });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('cursor-grabbing');
+            });
 
-        slider.addEventListener('mouseup', () => {
-            isDown = false;
-            slider.classList.remove('cursor-grabbing');
-        });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('cursor-grabbing');
+            });
 
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
         });
     </script>
     <script>
